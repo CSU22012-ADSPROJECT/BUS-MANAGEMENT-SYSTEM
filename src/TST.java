@@ -23,15 +23,13 @@ public class TST {
 	}
 
 	public Node get(String key) {
-		root = get(root, key, 0);
-		return root;
+		return root = get(root, key, 0);
 	}
 
 	private Node get(Node node, String key, int i) {
 
 		if (node == null)
 			return null;
-		System.out.println(node.getChar());
 		char c = key.charAt(i);
 		if (c < node.getChar())
 			return get(node.getLeft(), key, i);
