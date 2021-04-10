@@ -42,12 +42,40 @@ public class main {
 	//function to add the details associated with busStop to the busStop object
 	private static void addToBusStop(String[] arr, BusStop x){
 		//TODO
-		x.setStopName(arr[2]);
+		x.setStopID(Integer.parseInt(arr[0]));
+        if((arr[1].equals(" ")==false)){
+            x.setStopCode(Integer.parseInt(arr[1]));}
+        else{
+            x.setStopCode(0);
+        }
+        setnewBusStopName(x,arr);
+        x.setStopDesc(arr[3]);
+        x.setStopLat(Double.parseDouble(arr[4]));
+        x.setStopLon(Double.parseDouble(arr[5]));
+        x.setZoneID(arr[6]);
+        x.setStopURL(arr[7]);
+        x.setLocationType(arr[8]);
 		// etc.
 		
 	}
 	
-	
+	public static void setnewBusStopName(BusStop x, String[] array){
+        String name=array[2];
+        String[] arr = name.split(" ");
+        int m=0;
+        int l=arr.length;
+        String newName=name;
+        while(m<l){
+            if(arr[0].equals("FLAGSTOP")||arr[0].equals("NB")||arr[0].equals("EB")||arr[0].equals("SB")||arr[0].equals("WB")||arr[0].equals("ON")){
+                String temp=arr[0]+" ";
+                newName=newName.replace(temp, "");
+                newName=newName+" "+arr[0];
+                x.setStopName(newName);
+
+                arr = newName.split(" ");
+            }m++;
+        }
+}
 	
 }
 
