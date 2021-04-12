@@ -10,8 +10,9 @@ The 2d array will include the cost of each journey between stops
             When going through stop_times.txt, Get two lines at a time, check if they have the same trip_id, if so, then add to graph
             
         2. Go through transfers.txt, if transfer type=0, cost is 2. if transfer type=2, cost is min_transfer_time/100
-Then do Floyd-Marshalls on whole graph
+Then do Dijkstras on input
 Then use BFS to search for the journey inputted, also store information on the way
+Then go back through the graph and add up the costs
 */
 
 
@@ -130,29 +131,61 @@ public class shortestPath {
 
         }
 
-                //perform Floyd-Marshalls on graph of stops
-        for(int x=0; x<stops.length; x++) {
-            for(int y=0; y<stops.length; y++) {
-                for(int i=0; i<stops.length; i++) {
-                    if(stops[x][i]+stops[y][x] < stops[y][i]) {
-                        stops[y][i] = stops[y][x]+stops[x][i];
-                    }
-                }
-            }
-        }
+
 
 
 
         
     }
 
+    int [][] Dijkstras (int [][] stops, int startStop) {
+
+        for(int x=0; x<stops.length; x++) {
+            boolean [] checked = new boolean[stops.length];
+            checked[x] = true;
+            while(true) {
+                int i = -1;
+                int y=0;
+
+                while(y<stops.length) {
+                    if((checked[y]!=true) && (stops[x][y]!=Integer.MAX_VALUE)) {
+                        i=y;
+                        break;
+                    }
+                }
+
+                if(i==1) break;
+
+                checked[i]=true;
+
+                y=0;
+                while(y<stops.length) {
+                    if(stops[x][i]+stops[i][y] < stops[x][y]) {
+                        stops[x][y] = stops[x][i]+stops[i][y];
+                        checked[y]=false;
+                    }
+                    y++;
+
+                }
+            }
+
+        }
+        return stops;
+    }
 
 
+    int BFS (int [][] stops, int start, int end) {
 
+        
+
+        return -1;
+
+    }
 
     public static void main(String[] args) throws FileNotFoundException {
 
         shortestPath graph = new shortestPath("stops.txt", "stop_times.txt", "transfers.txt");
+
 
 
     }
