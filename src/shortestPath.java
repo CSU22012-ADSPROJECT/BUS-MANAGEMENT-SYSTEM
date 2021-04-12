@@ -19,6 +19,8 @@ Then go back through the graph and add up the costs
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 import javax.management.relation.Role;
@@ -176,7 +178,18 @@ public class shortestPath {
 
     int BFS (int [][] stops, int start, int end) {
 
-        
+        Queue<LinkedList> queue = new LinkedList<>();
+        LinkedList<Integer> startList = new LinkedList<Integer>();
+        startList.add(start);
+        queue.add(startList);
+
+        while(!queue.isEmpty()) {
+            LinkedList<Integer> path = new LinkedList<>();
+            path = queue.poll();
+
+
+
+        }
 
         return -1;
 
