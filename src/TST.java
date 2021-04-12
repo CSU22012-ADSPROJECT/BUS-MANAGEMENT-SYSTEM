@@ -1,23 +1,23 @@
 public class TST {
 	private Node root;
 
-	public void put(String key, int val) {
-		root = put(root, key, val, 0);
+	public void put(String key, BusStop stop) {
+		root = put(root, key, stop, 0);
 	}
 
-	private Node put(Node node, String key, int val, int i) {
+	private Node put(Node node, String key, BusStop stop, int i) {
 		char c = key.charAt(i);
 		if (node == null) {
 			node = new Node(c);
 		}
 		if (c < node.getChar()) {
-			node.setLeft(put(node.getLeft(), key, val, i));
+			node.setLeft(put(node.getLeft(), key, stop, i));
 		} else if (c > node.getChar()) {
-			node.setRight(put(node.getRight(), key, val, i));
+			node.setRight(put(node.getRight(), key, stop, i));
 		} else if (i < key.length() - 1) {
-			node.setMid(put(node.getMid(), key, val, i + 1));
+			node.setMid(put(node.getMid(), key, stop, i + 1));
 		} else {
-			node.setVal(val);
+			node.setStop(stop);
 		}
 		return node;
 	}
@@ -41,5 +41,4 @@ public class TST {
 			return node;
 
 	}
-
 }

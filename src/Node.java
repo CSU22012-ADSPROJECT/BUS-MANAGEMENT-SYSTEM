@@ -5,18 +5,18 @@ public class Node {
 	private Node left;
 	private Node mid;
 	private Node right;
-	private int val;
+	private BusStop stop;
 
 	public Node(char c) {
 		this.c = c;
 	}
 
-	public int getVal() {
-		return val;
+	public BusStop getStop() {
+		return stop;
 	}
 
-	public void setVal(int val) {
-		this.val = val;
+	public void setStop(BusStop stop) {
+		this.stop = stop;
 	}
 
 	public char getChar() {
