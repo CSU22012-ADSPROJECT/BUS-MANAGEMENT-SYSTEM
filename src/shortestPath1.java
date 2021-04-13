@@ -13,6 +13,17 @@ The 2d array will include the cost of each journey between stops
 Then do Dijkstras on input
 Then use BFS to search for the journey inputted, also store information on the way
 Then go back through the graph and add up the costs
+
+
+Method 2:
+Same as method 1, but change dijkstras implementation to have a better time complexity
+
+Method 3:
+Make same 2d array as before
+Instead of dijkstras, use Bellman-Ford to find shortest path
+
+
+
 */
 
 
@@ -26,28 +37,32 @@ import java.util.Scanner;
 import javax.management.relation.Role;
 
 
-public class shortestPath {
+public class shortestPath1 {
+
+
 
     String stopsFile;
     String stopTimeFile;
     String transfersFile;
+    int[][] stops;
 
 //CONSTRUCTOR OF CLASS MAKES THE GRAPH OF STOPS
 
-    shortestPath(String stopsFile, String stopTimeFile, String transfersFile) throws FileNotFoundException {
+    shortestPath1(String stopsFile, String stopTimeFile, String transfersFile) throws FileNotFoundException {
+
 
         this.stopsFile = stopsFile;
         this.stopTimeFile = stopTimeFile;
         this.transfersFile = transfersFile;
-
+        this.stops = stops;
 
         File Fstops = new File(stopsFile);
         File FstopTime = new File(stopTimeFile);
         File Ftransfer = new File(transfersFile);
 
         Scanner scanner  = new Scanner(FstopTime);
+        stops = new int[12487][12487];
 
-        int [][] stops = new int[12487][12487];
         //Set all entry as max_int for Floyd-Marshalls
         for(int i=0;i<stops.length;i++) {
             for(int j=0; j<stops.length; j++) {
@@ -133,12 +148,9 @@ public class shortestPath {
 
         }
 
-
-
-
-
         
     }
+
 
     int [][] Dijkstras (int [][] stops, int startStop) {
 
@@ -154,9 +166,10 @@ public class shortestPath {
                         i=y;
                         break;
                     }
+                    y++;
                 }
 
-                if(i==1) break;
+                if(i==-1) break;
 
                 checked[i]=true;
 
@@ -170,13 +183,13 @@ public class shortestPath {
 
                 }
             }
-
+            System.out.println(x);
         }
         return stops;
     }
 
 
-    int BFS (int [][] stops, int start, int end) {
+    LinkedList BFSforPath (int [][] stops, int start, int end) {
 
         Queue<LinkedList> queue = new LinkedList<>();
         LinkedList<Integer> startList = new LinkedList<Integer>();
@@ -186,20 +199,63 @@ public class shortestPath {
         while(!queue.isEmpty()) {
             LinkedList<Integer> path = new LinkedList<>();
             path = queue.poll();
-
-
-
+            int currStop = path.element();
+            if(currStop==end) {
+                return path;
+            }
+            for(int i=0; i<stops.length;i++) {
+                if(stops[currStop][i]!=Integer.MAX_VALUE) {
+                    LinkedList newPath = new LinkedList<>();
+                    newPath = path;
+                    newPath.add(stops[currStop][i]);
+                    queue.add(newPath);
+                }
+            }
         }
-
-        return -1;
+        return new LinkedList<>();
 
     }
 
+
+    void printPathAndCost (int [][] stops, LinkedList<Integer> path) {
+
+        int [] arrPath = {};
+        int [] arrCosts = {};
+
+        int i=0;
+        int stop1 = path.removeFirst();
+        while(!path.isEmpty()) {
+            arrPath[i] = stop1; 
+            int stop2 = path.removeFirst();
+            arrCosts[i] = stops[stop1][stop2];
+            stop1=stop2;
+            i++;
+        }
+        i=0;
+        while(i<arrPath.length) {
+            System.out.println("Go from " + arrPath[i] + "to " + arrPath[i+1]);
+            System.out.println("This will cost" + arrCosts[i]);
+            i++;
+        }
+            
+    }
+
+
     public static void main(String[] args) throws FileNotFoundException {
 
-        shortestPath graph = new shortestPath("stops.txt", "stop_times.txt", "transfers.txt");
+        shortestPath1 graph = new shortestPath1("stops.txt", "stop_times.txt", "transfers.txt");
+        System.out.println("1");
 
+        graph.Dijkstras(graph.stops, 646);
+        System.out.println("2");
+
+        LinkedList path = graph.BFSforPath(graph.stops, 646, 381);
+        System.out.println("3");
+
+        graph.printPathAndCost(graph.stops, path);
 
 
     }
 }
+
+
