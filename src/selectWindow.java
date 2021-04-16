@@ -21,7 +21,7 @@ public class selectWindow {
 
     
     public static void main(String[] args) throws FileNotFoundException {
-        File stops = new File("C:\\Users\\Utkarsh\\Downloads\\inputs\\stops.txt");
+        File stops = new File("stops.txt");
         frontInterface.tst = new TST();
         try {
             Scanner sc = new Scanner(stops);

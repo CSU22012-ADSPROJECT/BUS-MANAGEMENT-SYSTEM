@@ -150,7 +150,7 @@ public class shortestPathInterface {
             @Override
             public void actionPerformed(ActionEvent e) {
             	 try {
-					initialize("C:\\Users\\Utkarsh\\Downloads\\inputs\\stops.txt", "C:\\Users\\Utkarsh\\Downloads\\inputs\\stop_times.txt", "C:\\Users\\Utkarsh\\Downloads\\inputs\\transfers.txt");
+					initialize("stops.txt", "stop_times.txt", "transfers.txt");
 				} catch (FileNotFoundException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

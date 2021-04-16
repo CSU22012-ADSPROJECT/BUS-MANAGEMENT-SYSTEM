@@ -300,7 +300,7 @@ public class shortestPath2 {
       // };
       // dijkstra(adjacencyMatrix, 0);
 
-      shortestPath2 graph = new shortestPath2("C:\\Users\\Utkarsh\\Downloads\\inputs\\stops.txt", "C:\\Users\\Utkarsh\\Downloads\\inputs\\stop_times.txt", "C:\\Users\\Utkarsh\\Downloads\\inputs\\transfers.txt");
+      shortestPath2 graph = new shortestPath2("stops.txt", "stop_times.txt", "transfers.txt");
       graph.dijkstra(graph.stops,3744, 7109 );
 
   }
