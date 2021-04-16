@@ -111,10 +111,10 @@ public class Arrivals {
 	public String getArrivals(String input){
 
 		String[] time = input.split(":");
-    if (time.length < 3 || time.length > 3)
-    {
-      throw new IllegalArgumentException("Too many arguments");
-    }
+		if (time.length < 3 || time.length > 3)
+		{
+			throw new IllegalArgumentException("Too many arguments");
+		}
 		//Convert input time to time in seconds
 
 		int hours = Integer.parseInt(time[0]);
@@ -202,15 +202,13 @@ public class Arrivals {
 			else if (j > hi) {
 				a.set(k, aux.get(i++));
 			}
-			else if (sortBy == 0) {
-				if (aux.get(j).id < aux.get(i).id) {
-					a.set(k, aux.get(j++));
-				}
+			else if (sortBy == 0 && aux.get(j).id < aux.get(i).id) {
+				a.set(k, aux.get(j++));
+
 			}
-			else if (sortBy == 1) {
-				if (aux.get(j).arrivalInt < aux.get(i).arrivalInt) {
-					a.set(k, aux.get(j++));
-				}
+			else if (sortBy == 1 && aux.get(j).arrivalInt < aux.get(i).arrivalInt) {
+				a.set(k, aux.get(j++));
+
 			}
 
 			else {
