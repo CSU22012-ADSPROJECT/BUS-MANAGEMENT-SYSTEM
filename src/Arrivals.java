@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Arrivals {
 
 	String stopTimesFile;
-	ArrayList<Trip> trips;
+	ArrayList<Trip> trips = new ArrayList<Trip>();
 
 	Arrivals(String stopTimesFile) throws FileNotFoundException {
 
@@ -19,17 +19,24 @@ public class Arrivals {
 			//this is done to skip the initial line of headings
 
 			//while loop to go through every line of stop_times.txt
+			int i =1;
+
 			while(scanner.hasNextLine()) {
+				i++;
+				if(i == 772340 )
+				{
+					System.out.println("hi");
+				}
 				currentLine = scanner.nextLine();
 				try {
 					Trip temp = new Trip(currentLine);
 					trips.add(temp);
 				}
 				catch (IllegalArgumentException e){
-					System.out.println("Invalid line format");
+					System.out.println("Invalid line format" + i);
 				}
-				scanner.close();
 			}
+			scanner.close();
 		}
 		catch (FileNotFoundException e){
 			e.printStackTrace();
@@ -52,11 +59,10 @@ public class Arrivals {
 
 
 		Trip( String line) throws IllegalArgumentException{
-			String[] infoArray = line.split("\\s*,\\s*");
-			if(infoArray.length != 9)
-			{
-				System.out.println("Invalid format");
-				throw new IllegalArgumentException("Invalid number of line arguments");
+			String[] infoArray = new String[9];
+			String[] temp = line.split("\\s*,\\s*");
+			for (int i = 0; i < temp.length; i++) {
+				infoArray[i] =temp[i];
 			}
 			this.id = Integer.parseInt(infoArray[0]);
 			this.arrival_time = infoArray[1];
@@ -84,10 +90,25 @@ public class Arrivals {
 				throw new IllegalArgumentException("Secs outside of expected range");
 			}
 			this.arrivalInt = secs + 60*mins + 60*60*hours;
+
+			//check time is correct
+			time = departure_time.split(":");
+			hours = Integer.parseInt(time[0]);
+			if (hours > 23 || hours < 0) {
+				throw new IllegalArgumentException("Hours outside of expected range");
+			}
+			mins = Integer.parseInt(time[1]);
+			if (mins > 59 || mins < 0) {
+				throw new IllegalArgumentException("Mins outside of expected range");
+			}
+			secs = Integer.parseInt(time[2]);
+			if (secs > 59 || secs < 0) {
+				throw new IllegalArgumentException("Secs outside of expected range");
+			}
 		}
 	}
 
-	public String getArrivals(String input) throws IllegalArgumentException {
+	public String getArrivals(String input){
 
 		String[] time = input.split(":");
     if (time.length < 3 || time.length > 3)
@@ -121,7 +142,7 @@ public class Arrivals {
 		while (trips.get(indexMatch - 1).arrivalInt == searchTime) {
 			indexMatch--;
 		}
-		while (trips.get(indexMatch).arrivalInt == searchTime) {
+		while ( indexMatch<trips.size() && trips.get(indexMatch).arrivalInt == searchTime) {
 			returnString += trips.get(indexMatch).id + "," + trips.get(indexMatch).arrival_time + "," + trips.get(indexMatch).departure_time + "," + trips.get(indexMatch).stop_id + "," + trips.get(indexMatch).stop_sequence + "," + trips.get(indexMatch).stop_headsign + "," + trips.get(indexMatch).pickup_type + "," + trips.get(indexMatch).drop_off_type + "," + trips.get(indexMatch).shape_dist_traveled + "\n";
 			indexMatch++;
 		}
