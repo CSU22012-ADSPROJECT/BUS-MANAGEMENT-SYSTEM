@@ -1,5 +1,5 @@
 import javax.swing.*;
-import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -9,7 +9,10 @@ import java.util.List;
 import java.util.Scanner;
 
 public class selectWindow {
-    public static JPanel rootPanel;
+	private static String stopsFile="stops.txt";
+	private static String stopTimeFile="stop_times.txt";
+	private static String transfersFile="transfers.txt";
+	public static JPanel rootPanel;
     private static JButton stopSearchButton;
     private static JButton shortestPathButton;
     private static JButton timeButton;
@@ -18,10 +21,8 @@ public class selectWindow {
     static public int flag=0;
     static  List<String> stopNames;
     
-
-    
     public static void main(String[] args) throws FileNotFoundException {
-        File stops = new File("stops.txt");
+        File stops = new File(stopsFile);
         frontInterface.tst = new TST();
         try {
             Scanner sc = new Scanner(stops);
@@ -49,7 +50,7 @@ public class selectWindow {
            System.out.println(stopNames.get(700));
            createselectWindow(mainframe);
         } catch (FileNotFoundException e) {
-        	createErrorWindow(mainframe, "stops.txt");
+        	createErrorWindow(mainframe, stopsFile);
         }
     }
 
@@ -71,7 +72,11 @@ public class selectWindow {
         rootPanel.add(stopSearchButton);
         rootPanel.add(shortestPathButton);
         rootPanel.add(timeButton);
+        timeButton.setFont((new Font("Dialog", Font.BOLD, 15)));
+       stopSearchButton.setFont((new Font("Dialog", Font.BOLD, 15)));
+        shortestPathButton.setFont((new Font("Dialog", Font.BOLD, 15)));
         mainframe.getContentPane().add(rootPanel);
+        
         mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainframe.pack();
         mainframe.setSize(835, 260);  
@@ -87,7 +92,7 @@ public class selectWindow {
         shortestPathButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                shortestPathInterface.createshortestPathInterface(mainframe);
+                shortestPathInterface.createshortestPathInterface(mainframe,stopsFile,stopTimeFile,transfersFile );
                 mainframe.dispose();
             }
         });
@@ -95,7 +100,7 @@ public class selectWindow {
         timeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	timeInterface.createTimeInterface(mainframe);
+            	timeInterface.createTimeInterface(mainframe,stopTimeFile);
                 mainframe.dispose();
             }
         });
@@ -112,7 +117,7 @@ public class selectWindow {
         rootPanel=new JPanel();
         errorMessage=new JLabel("File "+filename+" not found. Please check the input files and try again.");
         rootPanel.setLayout(null);  
-        errorMessage.setBounds(200,100, 400, 30);
+        errorMessage.setBounds(100,100, 600, 30);
         rootPanel.add(errorMessage);
         mainframe.getContentPane().add(rootPanel);
         mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

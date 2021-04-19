@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -17,24 +19,26 @@ public class frontInterface {
     private static  JButton backButton;
     public static  TST tst ;
     static private JFrame mainframe;
-   // static List<BusStop> stopList = new ArrayList<BusStop>();
      static Node stop;
     static  List<BusStop> busStopOptions = new ArrayList<BusStop>();
     static int selectedStop;
+    static int firstclick=0;
+    static String c;
 
     
     public static void createfrontInterface(JFrame mainfram)
     {
+    	  firstclick=0;
     	  selectWindow.flag=1;
     	  mainframe = new JFrame("Search For a Stop");
           rootPanel=new JPanel();
           pressMeButton=new JButton("SEARCH");
           backButton=new JButton("BACK");   
-          textField1=new JTextField();
+          textField1=new JTextField("eg: INLET DR NS BAYVIEW DR SB");
           just=new JTextArea();
           busStopList=new JComboBox();
           rootPanel.setLayout(null);  
-          
+          textField1.setForeground(Color.GRAY);
           backButton.setBounds(0,0,70,30);
           just.setBounds(200,10, 400, 70);
           textField1.setBounds(200,100,400,30);
@@ -47,6 +51,7 @@ public class frontInterface {
           rootPanel.add(textField1);
           rootPanel.add(busStopList);
           busStopList.addItem("---Type name of a Stop---");
+        
           busStopList.setSelectedIndex(0);
           mainframe.getContentPane().add(rootPanel);
           mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,7 +62,7 @@ public class frontInterface {
           pressMeButton.addActionListener(new ActionListener() {
             @Override
              public void actionPerformed(ActionEvent e) {
-                String c = textField1.getText();
+               c = textField1.getText();
                 c=c.toUpperCase();
                 System.out.println("You typed :"+c);
                 if(c.equals("")==false){
@@ -74,14 +79,40 @@ public class frontInterface {
                 }
             }
         });
-       
-        textField1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+          
+          textField1.addActionListener(new ActionListener() {
+              @Override
+               public void actionPerformed(ActionEvent e) {
+            	  c = textField1.getText();
+                  c=c.toUpperCase();
+                  System.out.println("You typed :"+c);
+                  if(c.equals("")==false){
+                  gettstop(c,busStopList);}
+                  else{
+                      stop=null;
+                      busStopOptions.clear();
+                      busStopList.removeAllItems();
+                      just.setText("Please type something. ");
+                  }
 
+                  if(stop==null&&c.equals("")==false){
+                      just.setText("Invalid! No stop exists with that name. ");
+                  }
+              }
+          });
+       
+        
+        textField1.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e){
+            if(firstclick==0) {   
+            	textField1.setText("");
+            	  textField1.setForeground(Color.BLACK);
+                firstclick++;}
+            
             }
         });
-       
+        
       
         busStopList.addActionListener(new ActionListener() {
             @Override

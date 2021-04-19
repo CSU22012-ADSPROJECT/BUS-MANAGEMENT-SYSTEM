@@ -1,4 +1,5 @@
 
+
 //Finding shortest paths betewen 2 bus stops (as input by user), returning the list of stops en route as well as the cost(distance)
 
 /*
@@ -301,7 +302,7 @@ public class shortestPath2 {
       // dijkstra(adjacencyMatrix, 0);
 
       shortestPath2 graph = new shortestPath2("stops.txt", "stop_times.txt", "transfers.txt");
-      graph.dijkstra(graph.stops,3744, 7109 );
+      graph.dijkstra(graph.stops,3715, 508 );
 
   }
 
