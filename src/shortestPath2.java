@@ -302,7 +302,7 @@ public class shortestPath2 {
         // dijkstra(adjacencyMatrix, 0);
 
         shortestPath2 graph = new shortestPath2("stops.txt", "stop_times.txt", "transfers.txt");
-        graph.dijkstra(graph.stops, 646, 381);
+        graph.dijkstra(graph.stops, 3715, 508);
 
     }
 
