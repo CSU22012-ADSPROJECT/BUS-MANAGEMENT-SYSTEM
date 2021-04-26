@@ -435,7 +435,12 @@ try {
 
 			// Mark the picked vertex as
 			// processed
-			added[nearestVertex] = true;
+			if(nearestVertex>=0) {
+				added[nearestVertex] = true;}
+				else {
+					textArea1.setText("No Path for the chosen stops exists."+"\n");
+				break;
+				}
 
 			// Update dist value of the
 			// adjacent vertices of the
