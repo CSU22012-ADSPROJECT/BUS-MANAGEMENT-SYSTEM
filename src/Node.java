@@ -1,6 +1,5 @@
 
 public class Node {
-
     private char c;
     private Node left;
     private Node mid;
@@ -50,5 +49,4 @@ public class Node {
     public void setRight(Node right) {
         this.right = right;
     }
-
 }

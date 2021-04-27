@@ -11,6 +11,7 @@ public class Arrivals {
 
 	Arrivals(String stopTimesFile) throws FileNotFoundException {
 		trips = new ArrayList<Trip>();
+
 		this.stopTimesFile = stopTimesFile;
 		File FstopsTimes = new File(stopTimesFile);
 		try {
@@ -30,7 +31,6 @@ public class Arrivals {
 					trips.add(temp);
 				}
 				catch (IllegalArgumentException e){
-					
 				}
 			}
 			scanner.close();
@@ -53,7 +53,6 @@ public class Arrivals {
 		String drop_off_type;
 		String shape_dist_traveled;
 		int arrivalInt;
-
 
 		Trip( String line) throws IllegalArgumentException{
 			String[] infoArray = new String[9];
@@ -106,8 +105,7 @@ public class Arrivals {
 	}
 
 	public static String getArrivals(String input){
-
-		String[] time = input.split(":");
+  	String[] time = input.split(":");
 		if (time.length < 3 || time.length > 3)
 		{
 			throw new IllegalArgumentException("Too many arguments");
@@ -147,6 +145,7 @@ public class Arrivals {
 				space="";
 			}
 				returnString += " ["+(index++)+"]         "+space+rightPadding(String.valueOf(trips.get(indexMatch).id),20) + rightPadding(trips.get(indexMatch).arrival_time,20)+ rightPadding(trips.get(indexMatch).departure_time,20)+ rightPadding(trips.get(indexMatch).stop_id,20)+ rightPadding(trips.get(indexMatch).stop_sequence,20)+ rightPadding(trips.get(indexMatch).pickup_type,24)+ rightPadding(String.valueOf(trips.get(indexMatch).drop_off_type),24)+ rightPadding(String.valueOf(trips.get(indexMatch).shape_dist_traveled),26)+ rightPadding(trips.get(indexMatch).stop_headsign,22) + "\n";
+
 			indexMatch++;
 		}
 
@@ -155,6 +154,7 @@ public class Arrivals {
 
 	//Binary Search
 	static int binarySearch(ArrayList<Trip> arr, int left, int right, int match)
+
 	{
 		if (right >= left) {
 			int mid = left + (right - left) / 2;
@@ -238,5 +238,5 @@ public class Arrivals {
 		}
 		return r;
 	  }
-
 }
+

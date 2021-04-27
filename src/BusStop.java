@@ -1,6 +1,5 @@
 
 public class BusStop {
-
     int stop_id;
     int stop_code;
     String stop_name;
