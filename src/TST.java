@@ -23,7 +23,7 @@ public class TST {
 	}
 
 	public Node get(String key) {
-		return root = get(root, key, 0);
+		return get(root, key, 0);
 	}
 
 	private Node get(Node node, String key, int i) {
