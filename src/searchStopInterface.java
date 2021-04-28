@@ -176,8 +176,6 @@ public class searchStopInterface {
                 newName = newName + " " + arr[0];
                 x.setStopName(newName);
                 arr = newName.split(" ");
-            }else{
-                x.setStopName(newName);
             }
             m++;
         }
