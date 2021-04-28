@@ -181,7 +181,7 @@ public class searchStopInterface {
         }
     }
     public static String setnewBusStopName(String[] array) {
-        String x="";
+        String x=array[2];
     	String name = array[2];
         String[] arr = name.split(" ");
         int m = 0;

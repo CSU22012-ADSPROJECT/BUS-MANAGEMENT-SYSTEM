@@ -20,6 +20,7 @@ public class mainInterface {
     static private JLabel errorMessage;
     static public int flag=0;
     static  List<String> stopNames;
+    static  List<String> stopId;
     
     public static void main(String[] args) throws FileNotFoundException {
         File stops = new File(stopsFile);
@@ -29,6 +30,7 @@ public class mainInterface {
             sc.next(); // disregard first line as shows the format
             sc.useDelimiter("\n");
             stopNames = new ArrayList<String>();
+            stopId = new ArrayList<String>();
             while (sc.hasNext()) {
                 BusStop x = new BusStop();
                 String line = sc.next();
@@ -37,6 +39,7 @@ public class mainInterface {
                 searchStopInterface.addToBusStop(arr,x);
                 String name= searchStopInterface.setnewBusStopName(arr);
                 stopNames.add(name);
+                stopId.add(arr[0]);
          
                 // add to tst of BusStop
                 // until bug with stop names being null is fixed
@@ -46,8 +49,7 @@ public class mainInterface {
                 }
             }
             sc.close();
-           System.out.println(stopNames.get(600));
-           System.out.println(stopNames.get(700));
+           
            createselectWindow(mainframe);
         } catch (FileNotFoundException e) {
         	createErrorWindow(mainframe, stopsFile);

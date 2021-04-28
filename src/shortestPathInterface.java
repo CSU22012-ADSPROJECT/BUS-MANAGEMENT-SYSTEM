@@ -477,7 +477,7 @@ try {
 			return;
 		}
 		printPath(parents[currentVertex], parents, a);
-		a.append("\n" + "[" + (index++) + "]  " + mainInterface.stopNames.get(currentVertex) + " ");
+		a.append("\n" + "[" + (index++) + "]  " + mainInterface.stopNames.get(mainInterface.stopId.indexOf(Integer.toString(currentVertex))) + " ");
 	}
 
 	private static void printSolution(int startVertex, int[] distances, int[] parents, int endStop, JTextArea a) {
@@ -486,8 +486,8 @@ try {
 
 		int vertexIndex = endStop;
 		if (vertexIndex != startVertex && distances[vertexIndex] != Integer.MAX_VALUE) {
-			a.setText("Path :\n" + mainInterface.stopNames.get(startVertex) + " to ");
-			a.append(mainInterface.stopNames.get(vertexIndex) + " \n ");
+			a.setText("Path :\n" + mainInterface.stopNames.get(mainInterface.stopId.indexOf(Integer.toString(startVertex))) + " to ");
+			a.append(mainInterface.stopNames.get(mainInterface.stopId.indexOf(Integer.toString(vertexIndex))) + " \n ");
 			a.append("\n" + "Shortest Distance : " + distances[vertexIndex] + "\n");
 			a.append("\n" + "Path History : ");
 			index = 1;
