@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-public class timeInterface {
+public class arrivalTimeInterface {
 	private static String stopTimeFile;
 	private static JFrame mainframe;
 	private static JPanel rootPanel;
@@ -30,7 +30,7 @@ public class timeInterface {
 	
 	public static void createTimeInterface(JFrame mainfram, String stoptimefile) {
 		stopTimeFile=stoptimefile;
-		selectWindow.flag = 1;
+		mainInterface.flag = 1;
 		mainframe = new JFrame("Search for Trips by Arrival Time");
 		mainframe.setLayout(new BorderLayout());
 		rootPanel = new JPanel();
@@ -153,6 +153,6 @@ public class timeInterface {
 	}
 
 	public static void createAndShowGUI(JFrame mainframe) {
-		selectWindow.createselectWindow(mainframe);
+		mainInterface.createselectWindow(mainframe);
 	}
 }

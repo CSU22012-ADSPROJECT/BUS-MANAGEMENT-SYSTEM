@@ -56,7 +56,7 @@ public class shortestPathInterface {
 		transfersFile=transferfile;
 		firstclick1 = 0;
 		firstclick2 = 0;
-		selectWindow.flag = 1;
+		mainInterface.flag = 1;
 		mainframe = new JFrame("Find the Shortest Path");
 		mainframe.setLayout(new BorderLayout());
 		rootPanel = new JPanel();
@@ -221,8 +221,8 @@ public class shortestPathInterface {
 						// TODO Auto-generated catch block
 					}
 					if(fileNotFound!=1) {
-					dijkstra(stops, selectWindow.stopNames.indexOf(busStopOptions1.get(selectedStop1).getStopName()),
-					selectWindow.stopNames.indexOf(busStopOptions2.get(selectedStop2).getStopName()));
+					dijkstra(stops, mainInterface.stopNames.indexOf(busStopOptions1.get(selectedStop1).getStopName()),
+					mainInterface.stopNames.indexOf(busStopOptions2.get(selectedStop2).getStopName()));
 					printSolution(startingVertex, shortestDistance, parent, endingStop, textArea1);
 				}} else if (selectedStop1 < 0) {
 					textArea1.setText("Please select valid start stop.");
@@ -271,7 +271,7 @@ public class shortestPathInterface {
 	}
 
 	public static void createAndShowGUI(JFrame mainframe) {
-		selectWindow.createselectWindow(mainframe);
+		mainInterface.createselectWindow(mainframe);
 	}
 
 	public static void initialize(String stopsFiles, String stopTimeFiles, String transfersFiles)
@@ -477,7 +477,7 @@ try {
 			return;
 		}
 		printPath(parents[currentVertex], parents, a);
-		a.append("\n" + "[" + (index++) + "]  " + selectWindow.stopNames.get(currentVertex) + " ");
+		a.append("\n" + "[" + (index++) + "]  " + mainInterface.stopNames.get(currentVertex) + " ");
 	}
 
 	private static void printSolution(int startVertex, int[] distances, int[] parents, int endStop, JTextArea a) {
@@ -486,8 +486,8 @@ try {
 
 		int vertexIndex = endStop;
 		if (vertexIndex != startVertex && distances[vertexIndex] != Integer.MAX_VALUE) {
-			a.setText("Path :\n" + selectWindow.stopNames.get(startVertex) + " to ");
-			a.append(selectWindow.stopNames.get(vertexIndex) + " \n ");
+			a.setText("Path :\n" + mainInterface.stopNames.get(startVertex) + " to ");
+			a.append(mainInterface.stopNames.get(vertexIndex) + " \n ");
 			a.append("\n" + "Shortest Distance : " + distances[vertexIndex] + "\n");
 			a.append("\n" + "Path History : ");
 			index = 1;
@@ -513,7 +513,7 @@ try {
 	}
 
 	public static Node gettstop(String c, JComboBox j, Node stop, List<BusStop> busStopOptions) {
-		stop = frontInterface.tst.get(c);
+		stop = searchStopInterface.tst.get(c);
 		busStopOptions.clear();
 		j.removeAllItems();
 		printAllViableStops(stop, busStopOptions);

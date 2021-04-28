@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class selectWindow {
+public class mainInterface {
 	private static String stopsFile="stops.txt";
 	private static String stopTimeFile="stop_times.txt";
 	private static String transfersFile="transfers.txt";
@@ -23,7 +23,7 @@ public class selectWindow {
     
     public static void main(String[] args) throws FileNotFoundException {
         File stops = new File(stopsFile);
-        frontInterface.tst = new TST();
+        searchStopInterface.tst = new TST();
         try {
             Scanner sc = new Scanner(stops);
             sc.next(); // disregard first line as shows the format
@@ -34,14 +34,14 @@ public class selectWindow {
                 String line = sc.next();
                 String[] arr = line.split(",");
                 // add elements of arr to busStop object here
-                frontInterface.addToBusStop(arr,x);
-                String name= frontInterface.setnewBusStopName(arr);
+                searchStopInterface.addToBusStop(arr,x);
+                String name= searchStopInterface.setnewBusStopName(arr);
                 stopNames.add(name);
          
                 // add to tst of BusStop
                 // until bug with stop names being null is fixed
                 if (x.getStopName() != null) {
-                    frontInterface.tst.put(x.getStopName(), x);
+                    searchStopInterface.tst.put(x.getStopName(), x);
                     // System.out.println("added " + x.getStopName() + " to TST");
                 }
             }
@@ -55,7 +55,7 @@ public class selectWindow {
     }
 
     public static void createAndShowGUI() {
-        frontInterface.createfrontInterface(mainframe);
+        searchStopInterface.createfrontInterface(mainframe);
     }
     public static void createselectWindow(JFrame mainfram) {    	    	
   	    mainframe = new JFrame("Menu");
@@ -100,7 +100,7 @@ public class selectWindow {
         timeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	timeInterface.createTimeInterface(mainframe,stopTimeFile);
+            	arrivalTimeInterface.createTimeInterface(mainframe,stopTimeFile);
                 mainframe.dispose();
             }
         });

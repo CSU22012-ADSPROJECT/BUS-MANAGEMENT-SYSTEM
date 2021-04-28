@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class frontInterface {
+public class searchStopInterface {
     public static JPanel rootPanel;
     private static JButton pressMeButton;
     private static JTextField textField1;
@@ -29,7 +29,7 @@ public class frontInterface {
     public static void createfrontInterface(JFrame mainfram)
     {
     	  firstclick=0;
-    	  selectWindow.flag=1;
+    	  mainInterface.flag=1;
     	  mainframe = new JFrame("Search For a Stop");
           rootPanel=new JPanel();
           pressMeButton=new JButton("SEARCH");
@@ -247,6 +247,6 @@ public class frontInterface {
       //  System.out.println(busStopOptions);
     }
     public static void createAndShowGUI(JFrame mainframe) {
-        selectWindow.createselectWindow(mainframe);
+        mainInterface.createselectWindow(mainframe);
     }
 }
