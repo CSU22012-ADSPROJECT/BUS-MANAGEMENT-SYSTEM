@@ -56,7 +56,7 @@ public class searchStopInterface {
           mainframe.getContentPane().add(rootPanel);
           mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
           mainframe.pack();
-          mainframe.setSize(835, 260);
+          mainframe.setSize(835, 320);
  
        
           pressMeButton.addActionListener(new ActionListener() {
