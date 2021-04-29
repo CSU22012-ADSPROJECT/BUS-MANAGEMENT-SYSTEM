@@ -122,10 +122,13 @@ public class searchStopInterface {
                  if(selectedStop>=0) {
                 System.out.println(busStopOptions.get(selectedStop).getStopName());
                     textField1.setText(busStopOptions.get(selectedStop).getStopName());
-                just.setText("Bus Stop :            "+busStopOptions.get(selectedStop).getStopName()+"  "+"\n"+
-                            "Stop Id :                "+String.valueOf(busStopOptions.get(selectedStop).getStopID())+"  "+"\n"+
-                            "Bus Destination :   "+busStopOptions.get(selectedStop).getStopDesc()+"  "+"\n"+
-                            "Stop Code :           "+String.valueOf(busStopOptions.get(selectedStop).getStopCode())+"  "+"\n");
+                    just.setText("Bus Stop :            " +busStopOptions.get(selectedStop).getStopName()+"  "+"\n"+
+                    "Stop Id :                "+String.valueOf(busStopOptions.get(selectedStop).getStopID())+"  "+"\n"+
+                    "Bus Destination :   "+busStopOptions.get(selectedStop).getStopDesc()+"  "+"\n"+
+                    "Stop Code :           "+String.valueOf(busStopOptions.get(selectedStop).getStopCode())+"  "+"\n"+
+                    "Stop Lat :              "+String.valueOf(busStopOptions.get(selectedStop).getStopLat())+"  "+"\n"+
+                    "Stop Lon :             "+String.valueOf(busStopOptions.get(selectedStop).getStopLon())+"  "+"\n"+
+                    "Zone Id  :              "+String.valueOf(busStopOptions.get(selectedStop).getZoneID())+"  "+"\n");
                 }}
                 	
                 
