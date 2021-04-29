@@ -40,10 +40,10 @@ public class searchStopInterface {
           rootPanel.setLayout(null);  
           textField1.setForeground(Color.GRAY);
           backButton.setBounds(0,0,70,30);
-          just.setBounds(200,10, 400, 70);
-          textField1.setBounds(200,100,400,30);
-          busStopList.setBounds(200,140, 400, 30);
-          pressMeButton.setBounds(200,190, 400, 30);
+          just.setBounds(200,10, 400, 120);
+          textField1.setBounds(200,150,400,30);
+          busStopList.setBounds(200,190, 400, 30);
+          pressMeButton.setBounds(200,240, 400, 30);
           
           rootPanel.add(pressMeButton);
           rootPanel.add(backButton);
