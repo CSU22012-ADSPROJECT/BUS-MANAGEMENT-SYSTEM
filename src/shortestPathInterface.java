@@ -221,8 +221,8 @@ public class shortestPathInterface {
 						// TODO Auto-generated catch block
 					}
 					if(fileNotFound!=1) {
-					dijkstra(stops, mainInterface.stopNames.indexOf(busStopOptions1.get(selectedStop1).getStopName()),
-					mainInterface.stopNames.indexOf(busStopOptions2.get(selectedStop2).getStopName()));
+					dijkstra(stops, Integer.valueOf(mainInterface.stopId.get(mainInterface.stopNames.indexOf(busStopOptions1.get(selectedStop1).getStopName()))),
+							 Integer.valueOf(mainInterface.stopId.get(mainInterface.stopNames.indexOf(busStopOptions2.get(selectedStop2).getStopName()))));
 					printSolution(startingVertex, shortestDistance, parent, endingStop, textArea1);
 				}} else if (selectedStop1 < 0) {
 					textArea1.setText("Please select valid start stop.");
@@ -238,6 +238,7 @@ public class shortestPathInterface {
 					selectedStop1 = (startStop.getSelectedIndex() - 1);
 					if (selectedStop1 >= 0) {
 						textField1.setText(busStopOptions1.get(selectedStop1).getStopName());
+						System.out.println(mainInterface.stopId.get(mainInterface.stopNames.indexOf(busStopOptions1.get(selectedStop1).getStopName())));
 					}
 				} else {
 					selectedStop1 = -1;
@@ -250,7 +251,8 @@ public class shortestPathInterface {
 				if ((destStop.getSelectedIndex()) >= 1) {
 					selectedStop2 = (destStop.getSelectedIndex() - 1);
 					if (selectedStop2 >= 0) {
-						textField2.setText(busStopOptions2.get(selectedStop2).getStopName());					
+						textField2.setText(busStopOptions2.get(selectedStop2).getStopName());
+						System.out.println(mainInterface.stopId.get(mainInterface.stopNames.indexOf(busStopOptions2.get(selectedStop2).getStopName())));
 					}
 				} else {
 					selectedStop2 = -1;
@@ -436,11 +438,11 @@ try {
 			// Mark the picked vertex as
 			// processed
 			if(nearestVertex>=0) {
-				added[nearestVertex] = true;}
-				else {
-					textArea1.setText("No Path for the chosen stops exists."+"\n");
-				break;
-				}
+			added[nearestVertex] = true;}
+			else {
+				textArea1.setText("No Path for the chosen stops exists."+"\n");
+			break;
+			}
 
 			// Update dist value of the
 			// adjacent vertices of the
@@ -477,13 +479,11 @@ try {
 			return;
 		}
 		printPath(parents[currentVertex], parents, a);
-		a.append("\n" + "[" + (index++) + "]  " + mainInterface.stopNames.get(mainInterface.stopId.indexOf(Integer.toString(currentVertex))) + " ");
+		textArea1.append("\n" + "[" + (index++) + "]  " + mainInterface.stopNames.get(mainInterface.stopId.indexOf(Integer.toString(currentVertex))) + " ");
 	}
 
 	private static void printSolution(int startVertex, int[] distances, int[] parents, int endStop, JTextArea a) {
-
 		// System.out.print("Vertex\t Distance\tPath");
-
 		int vertexIndex = endStop;
 		if (vertexIndex != startVertex && distances[vertexIndex] != Integer.MAX_VALUE) {
 			a.setText("Path :\n" + mainInterface.stopNames.get(mainInterface.stopId.indexOf(Integer.toString(startVertex))) + " to ");
@@ -494,7 +494,6 @@ try {
 			printPath(vertexIndex, parents, a);
 			index = 1;
 		}
-
 	}
 
 	private static void printAllViableStops(Node stop, List<BusStop> busStopOptions) {
