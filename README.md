@@ -20,4 +20,4 @@
 
 * Ryan Ting -
 
-* Eimhin Campbell Carroll -
+* Eimhin Campbell Carroll -I worked on the third part of the code specification, creating a method to sort and search the trips in a document based on their arrival time. I also recorded the demonstration for this feature.
