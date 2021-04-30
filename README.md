@@ -16,7 +16,7 @@
 
 * Mark Lysaght - Created github organisation to keep code up to date. Search functionality, made a ternary search tree, made bus stop class to store the relevant details of each stop and methods in the main to make the search stop feature work.
 
-* Utkarsh Gupta -
+* Utkarsh Gupta -Created function to properly store bus stop names, to make search easier as specified in the assignment instructions. Designed the 4 interfaces, mainInterface.java,searchStopInterface.java,arrivalTime.java and shortestPathInterface.java and coded their error handling.Integrated the algorithms made by my teammates into the interfaces and formatted their output.Merged and narrated the demos made by team members.
 
 * Ryan Ting -
 
