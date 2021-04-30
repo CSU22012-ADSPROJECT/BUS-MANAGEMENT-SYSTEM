@@ -1,6 +1,4 @@
-
 import javax.swing.*;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -47,13 +45,13 @@ public class shortestPathInterface {
 	static int noPathFlag = 1;
 	static int firstclick1 = 0;
 	static int firstclick2 = 0;
-	private static int fileNotFound=0;
-	private static int stopTimeFileNotValid=0;
-	
-	public static void createshortestPathInterface(JFrame mainfram,String stopfile,String stoptimefile, String transferfile ) {
-		stopsFile=stopfile;
-		stopTimeFile=stoptimefile;
-		transfersFile=transferfile;
+	private static int fileNotFound = 0;
+
+	public static void createshortestPathInterface(JFrame mainfram, String stopfile, String stoptimefile,
+			String transferfile) {
+		stopsFile = stopfile;
+		stopTimeFile = stoptimefile;
+		transfersFile = transferfile;
 		firstclick1 = 0;
 		firstclick2 = 0;
 		mainInterface.flag = 1;
@@ -64,7 +62,8 @@ public class shortestPathInterface {
 		textArea1 = new JTextArea(10, 1);
 		textArea1.setEditable(false);
 		textArea1.setText("Welcome.Please select the start and end stops to continue.");
-		scroll = new JScrollPane(textArea1, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scroll = new JScrollPane(textArea1, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		start = new JLabel("Enter Start Stop");
 		end = new JLabel("Enter End Stop");
 		textField1 = new JTextField("eg: HASTINGS ST...");
@@ -107,8 +106,8 @@ public class shortestPathInterface {
 
 		mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainframe.pack();
-		selectedStop1=-1;
-		selectedStop2=-1;
+		selectedStop1 = -1;
+		selectedStop2 = -1;
 		searchButton1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -208,7 +207,6 @@ public class shortestPathInterface {
 				}
 			}
 		});
-	
 
 		searchPathButton.addActionListener(new ActionListener() {
 			@Override
@@ -216,15 +214,19 @@ public class shortestPathInterface {
 				if (selectedStop1 >= 0 && selectedStop2 >= 0) {
 					textArea1.setText("Searching for Shortest Path...");
 					try {
-						initialize(stopsFile ,stopTimeFile ,transfersFile);
+						initialize(stopsFile, stopTimeFile, transfersFile);
 					} catch (FileNotFoundException e1) {
 						// TODO Auto-generated catch block
 					}
-					if(fileNotFound!=1) {
-					dijkstra(stops, Integer.valueOf(mainInterface.stopId.get(mainInterface.stopNames.indexOf(busStopOptions1.get(selectedStop1).getStopName()))),
-							 Integer.valueOf(mainInterface.stopId.get(mainInterface.stopNames.indexOf(busStopOptions2.get(selectedStop2).getStopName()))));
-					printSolution(startingVertex, shortestDistance, parent, endingStop, textArea1);
-				}} else if (selectedStop1 < 0) {
+					if (fileNotFound != 1) {
+						dijkstra(stops,
+								Integer.valueOf(mainInterface.stopId.get(mainInterface.stopNames
+										.indexOf(busStopOptions1.get(selectedStop1).getStopName()))),
+								Integer.valueOf(mainInterface.stopId.get(mainInterface.stopNames
+										.indexOf(busStopOptions2.get(selectedStop2).getStopName()))));
+						printSolution(startingVertex, shortestDistance, parent, endingStop, textArea1);
+					}
+				} else if (selectedStop1 < 0) {
 					textArea1.setText("Please select valid start stop.");
 				} else if (selectedStop2 < 0) {
 					textArea1.setText("Please select valid end stop.");
@@ -238,7 +240,7 @@ public class shortestPathInterface {
 					selectedStop1 = (startStop.getSelectedIndex() - 1);
 					if (selectedStop1 >= 0) {
 						textField1.setText(busStopOptions1.get(selectedStop1).getStopName());
-						System.out.println(mainInterface.stopId.get(mainInterface.stopNames.indexOf(busStopOptions1.get(selectedStop1).getStopName())));
+
 					}
 				} else {
 					selectedStop1 = -1;
@@ -252,13 +254,13 @@ public class shortestPathInterface {
 					selectedStop2 = (destStop.getSelectedIndex() - 1);
 					if (selectedStop2 >= 0) {
 						textField2.setText(busStopOptions2.get(selectedStop2).getStopName());
-						System.out.println(mainInterface.stopId.get(mainInterface.stopNames.indexOf(busStopOptions2.get(selectedStop2).getStopName())));
+
 					}
 				} else {
 					selectedStop2 = -1;
 				}
 			}
-		});		
+		});
 		backButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -285,95 +287,89 @@ public class shortestPathInterface {
 		File Fstops = new File(stopsFile);
 		File FstopTime = new File(stopTimeFile);
 		File Ftransfer = new File(transfersFile);
-try {
-		
-		Scanner scanner = new Scanner(FstopTime);
-		stops = new int[12487][12487];
+		try {
 
-		for (int i = 0; i < stops.length; i++) {
-			for (int j = 0; j < stops.length; j++) {
-				stops[i][j] = 0;
-				if (i == j)
+			Scanner scanner = new Scanner(FstopTime);
+			stops = new int[12487][12487];
+
+			for (int i = 0; i < stops.length; i++) {
+				for (int j = 0; j < stops.length; j++) {
 					stops[i][j] = 0;
+					if (i == j)
+						stops[i][j] = 0;
+				}
 			}
-		}
 
-		// get 2 lines from stop_times.txt, then store them in an variables,
-		// index 0=trip_id, 1=stop_id
+			// get 2 lines from stop_times.txt, then store them in an variables,
+			// index 0=trip_id, 1=stop_id
+			String line1 = scanner.nextLine();
+			// this is done to skip the initial line of headings
+			line1 = scanner.nextLine();
+			// while loop to go through every line of stops_times.txt
+			while (scanner.hasNextLine()) {
 
-		String line1 = scanner.nextLine();
-		// this is done to skip the initial line of headings
-		line1 = scanner.nextLine();
+				String line2 = scanner.nextLine();
+				// get trip_id and stop_id from both lines
+				Scanner line1Scanner = new Scanner(line1);
+				Scanner line2Scanner = new Scanner(line2);
+				line1Scanner.useDelimiter(",");
+				line2Scanner.useDelimiter(",");
 
-		// while loop to go through every line of stops_times.txt
-		while (scanner.hasNextLine()) {
+				// to get trip_id
+				String line1Trip = line1Scanner.next();
+				String line2Trip = line2Scanner.next();
 
-			String line2 = scanner.nextLine();
-			// get trip_id and stop_id from both lines
-			Scanner line1Scanner = new Scanner(line1);
-			Scanner line2Scanner = new Scanner(line2);
-			line1Scanner.useDelimiter(",");
-			line2Scanner.useDelimiter(",");
+				// Skips over un-needed data
+				line1Scanner.next();
+				line2Scanner.next();
+				line1Scanner.next();
+				line2Scanner.next();
 
-			// to get trip_id
-			String line1Trip = line1Scanner.next();
-			String line2Trip = line2Scanner.next();
+				// to get stop_id
+				String line1Stop = line1Scanner.next();
+				String line2Stop = line2Scanner.next();
 
-			// Skips over un-needed data
-			line1Scanner.next();
-			line2Scanner.next();
-			line1Scanner.next();
-			line2Scanner.next();
+				// now if trip_id is the same, then 'cost' to array
 
-			// to get stop_id
-			String line1Stop = line1Scanner.next();
-			String line2Stop = line2Scanner.next();
-
-			// now if trip_id is the same, then 'cost' to array
-
-			if (line1Trip.equals(line2Trip)) {
-				stops[Integer.parseInt(line1Stop)][Integer.parseInt(line2Stop)] = 1;
+				if (line1Trip.equals(line2Trip)) {
+					stops[Integer.parseInt(line1Stop)][Integer.parseInt(line2Stop)] = 1;
+				}
+				// now compare line2 with next line, so make line 2, line 1
+				line1 = line2;
 			}
-			// System.out.println("Trip_id1 = " + line1Trip);
-			// System.out.println("Trip_id2 = " + line2Trip);
-			// System.out.println("Stop_id1 = " + line1Stop);
-			// System.out.println("Stop_id2 = " + line2Stop);
-
-			// now compare line2 with next line, so make line 2, line 1
-			line1 = line2;
-		}}catch (FileNotFoundException e){
-			//e.printStackTrace();
-			fileNotFound=1;
-			textArea1.setText("File "+stopTimeFile+" is invalid. Please check the file and try again."+"\n");
+		} catch (FileNotFoundException e) {
+			fileNotFound = 1;
+			textArea1.setText("File " + stopTimeFile + " is invalid. Please check the file and try again." + "\n");
 		}
 
 		try {
-		Scanner scanner = new Scanner(Ftransfer);
-		String line = scanner.nextLine();
-		// while loop to go through every line of transfer.txt
-		while (scanner.hasNextLine()) {
-			line = scanner.nextLine();
-			Scanner lineScanner = new Scanner(line);
-			lineScanner.useDelimiter(",");
-			int from_stop_id = Integer.parseInt(lineScanner.next());
-			int to_stop_id = Integer.parseInt(lineScanner.next());
-			int transfer_type = Integer.parseInt(lineScanner.next());
-			int min_transfer_time = 0;
-			if (lineScanner.hasNext()) {
-				min_transfer_time = Integer.parseInt(lineScanner.next());
+			Scanner scanner = new Scanner(Ftransfer);
+			String line = scanner.nextLine();
+			// while loop to go through every line of transfer.txt
+			while (scanner.hasNextLine()) {
+				line = scanner.nextLine();
+				Scanner lineScanner = new Scanner(line);
+				lineScanner.useDelimiter(",");
+				int from_stop_id = Integer.parseInt(lineScanner.next());
+				int to_stop_id = Integer.parseInt(lineScanner.next());
+				int transfer_type = Integer.parseInt(lineScanner.next());
+				int min_transfer_time = 0;
+				if (lineScanner.hasNext()) {
+					min_transfer_time = Integer.parseInt(lineScanner.next());
+				}
+				try {
+					if (transfer_type == 0) {
+						stops[from_stop_id][to_stop_id] = 2;
+					} else {
+						stops[from_stop_id][to_stop_id] = min_transfer_time / 100;
+					}
+				} catch (NullPointerException | IndexOutOfBoundsException e) {
+
+				}
 			}
-			try {
-			if (transfer_type == 0) {
-				stops[from_stop_id][to_stop_id] = 2;
-			} else {
-				stops[from_stop_id][to_stop_id] = min_transfer_time / 100;
-			}}catch (NullPointerException | IndexOutOfBoundsException e) {
-			 
-			}
-		}}catch (FileNotFoundException e){
-			//e.printStackTrace();
-			fileNotFound=1;
-			textArea1.setText("File "+transfersFile+" is invalid. Please check the file and try again."+"\n");
+		} catch (FileNotFoundException e) {
+			fileNotFound = 1;
+			textArea1.setText("File " + transfersFile + " is invalid. Please check the file and try again." + "\n");
 		}
 	}
 
@@ -412,15 +408,6 @@ try {
 		// Find shortest path for all
 		// vertices
 		for (int i = 1; i < 8717; i++) {
-			// System.out.println(i);
-
-			// if(i==8717) {
-			// System.out.println("yeet");
-			// }
-			// if(i==4183) {
-			// System.out.println("yeet");
-			// }
-
 			// Pick the minimum distance vertex
 			// from the set of vertices not yet
 			// processed. nearestVertex is
@@ -434,16 +421,14 @@ try {
 					shortestDistance = shortestDistances[vertexIndex];
 				}
 			}
-
 			// Mark the picked vertex as
 			// processed
-			if(nearestVertex>=0) {
-			added[nearestVertex] = true;}
-			else {
-				textArea1.setText("No Path for the chosen stops exists."+"\n");
-			break;
+			if (nearestVertex >= 0) {
+				added[nearestVertex] = true;
+			} else {
+				textArea1.setText("No Path for the chosen stops exists." + "\n");
+				break;
 			}
-
 			// Update dist value of the
 			// adjacent vertices of the
 			// picked vertex.
@@ -456,11 +441,6 @@ try {
 				}
 			}
 		}
-
-		// for(int i=0; i<parents.length;i++) {
-		// if(parents[i]==0) parents[i]=-1;
-		// }
-
 		startingVertex = startVertex;
 		endingStop = endStop;
 		shortestDistance = new int[nVertices];
@@ -472,21 +452,22 @@ try {
 	}
 
 	private static void printPath(int currentVertex, int[] parents, JTextArea a) {
-
 		// Base case : Source node has
 		// been processed
 		if (currentVertex == NO_PARENT) {
 			return;
 		}
 		printPath(parents[currentVertex], parents, a);
-		textArea1.append("\n" + "[" + (index++) + "]  " + mainInterface.stopNames.get(mainInterface.stopId.indexOf(Integer.toString(currentVertex))) + " ");
+		textArea1.append("\n" + "[" + (index++) + "]  "
+				+ mainInterface.stopNames.get(mainInterface.stopId.indexOf(Integer.toString(currentVertex))) + " ");
 	}
 
 	private static void printSolution(int startVertex, int[] distances, int[] parents, int endStop, JTextArea a) {
-		// System.out.print("Vertex\t Distance\tPath");
 		int vertexIndex = endStop;
 		if (vertexIndex != startVertex && distances[vertexIndex] != Integer.MAX_VALUE) {
-			a.setText("Path :\n" + mainInterface.stopNames.get(mainInterface.stopId.indexOf(Integer.toString(startVertex))) + " to ");
+			a.setText("Path :\n"
+					+ mainInterface.stopNames.get(mainInterface.stopId.indexOf(Integer.toString(startVertex)))
+					+ " to ");
 			a.append(mainInterface.stopNames.get(mainInterface.stopId.indexOf(Integer.toString(vertexIndex))) + " \n ");
 			a.append("\n" + "Shortest Distance : " + distances[vertexIndex] + "\n");
 			a.append("\n" + "Path History : ");

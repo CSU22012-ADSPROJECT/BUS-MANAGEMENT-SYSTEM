@@ -4,11 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class searchStopInterface {
     public static JPanel rootPanel;
@@ -64,7 +61,6 @@ public class searchStopInterface {
              public void actionPerformed(ActionEvent e) {
                c = textField1.getText();
                 c=c.toUpperCase();
-                System.out.println("You typed :"+c);
                 if(c.equals("")==false){
                 gettstop(c,busStopList);}
                 else{
@@ -85,7 +81,7 @@ public class searchStopInterface {
                public void actionPerformed(ActionEvent e) {
             	  c = textField1.getText();
                   c=c.toUpperCase();
-                  System.out.println("You typed :"+c);
+               
                   if(c.equals("")==false){
                   gettstop(c,busStopList);}
                   else{
@@ -120,7 +116,7 @@ public class searchStopInterface {
                 if((busStopList.getSelectedIndex())>-1){
                  selectedStop=  (busStopList.getSelectedIndex()-1);
                  if(selectedStop>=0) {
-                System.out.println(busStopOptions.get(selectedStop).getStopName());
+               
                     textField1.setText(busStopOptions.get(selectedStop).getStopName());
                     just.setText("Bus Stop :            " +busStopOptions.get(selectedStop).getStopName()+"  "+"\n"+
                     "Stop Id :                "+String.valueOf(busStopOptions.get(selectedStop).getStopID())+"  "+"\n"+
@@ -215,25 +211,20 @@ public class searchStopInterface {
         if (stop.getLeft() == null && stop.getMid() == null && stop.getRight() == null) {
             busStopOptions.add(stop.getStop());
             //stopList.add(stop.getStop());
-            System.out.println(stop.getStop().getStopName() + ", ");
+           
             return;
         }
     }
     public static void  gettstop(String c, JComboBox j){
         stop = tst.get(c);
-        if(tst.get(c)==null){
-            System.out.println("Not null");
-        }
-        if(stop==null){
-            System.out.println("stops is null");
-        }
-        //System.out.println("Old list :"+busStopOptions);
+       
+        
         busStopOptions.clear();
         j.removeAllItems();
         
-       // stopList.clear();
+     
         printAllViableStops(stop,busStopOptions);
-       // System.out.println("New list :"+busStopOptions);
+    
 
         int x=0;
         if(stop!=null){
@@ -244,10 +235,10 @@ public class searchStopInterface {
             j.setSelectedIndex(0);
             
         }else{
-            System.out.println("empty");
+         
             j.removeAllItems();
         }
-      //  System.out.println(busStopOptions);
+     
     }
     public static void createAndShowGUI(JFrame mainframe) {
         mainInterface.createselectWindow(mainframe);
