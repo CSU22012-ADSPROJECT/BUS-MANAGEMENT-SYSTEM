@@ -4,13 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-public class frontInterface {
+public class searchStopInterface {
     public static JPanel rootPanel;
     private static JButton pressMeButton;
     private static JTextField textField1;
@@ -29,7 +26,7 @@ public class frontInterface {
     public static void createfrontInterface(JFrame mainfram)
     {
     	  firstclick=0;
-    	  selectWindow.flag=1;
+    	  mainInterface.flag=1;
     	  mainframe = new JFrame("Search For a Stop");
           rootPanel=new JPanel();
           pressMeButton=new JButton("SEARCH");
@@ -40,10 +37,10 @@ public class frontInterface {
           rootPanel.setLayout(null);  
           textField1.setForeground(Color.GRAY);
           backButton.setBounds(0,0,70,30);
-          just.setBounds(200,10, 400, 70);
-          textField1.setBounds(200,100,400,30);
-          busStopList.setBounds(200,140, 400, 30);
-          pressMeButton.setBounds(200,190, 400, 30);
+          just.setBounds(200,10, 400, 120);
+          textField1.setBounds(200,150,400,30);
+          busStopList.setBounds(200,190, 400, 30);
+          pressMeButton.setBounds(200,240, 400, 30);
           
           rootPanel.add(pressMeButton);
           rootPanel.add(backButton);
@@ -56,7 +53,7 @@ public class frontInterface {
           mainframe.getContentPane().add(rootPanel);
           mainframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
           mainframe.pack();
-          mainframe.setSize(835, 260);
+          mainframe.setSize(835, 320);
  
        
           pressMeButton.addActionListener(new ActionListener() {
@@ -64,7 +61,6 @@ public class frontInterface {
              public void actionPerformed(ActionEvent e) {
                c = textField1.getText();
                 c=c.toUpperCase();
-                System.out.println("You typed :"+c);
                 if(c.equals("")==false){
                 gettstop(c,busStopList);}
                 else{
@@ -85,7 +81,7 @@ public class frontInterface {
                public void actionPerformed(ActionEvent e) {
             	  c = textField1.getText();
                   c=c.toUpperCase();
-                  System.out.println("You typed :"+c);
+               
                   if(c.equals("")==false){
                   gettstop(c,busStopList);}
                   else{
@@ -120,12 +116,15 @@ public class frontInterface {
                 if((busStopList.getSelectedIndex())>-1){
                  selectedStop=  (busStopList.getSelectedIndex()-1);
                  if(selectedStop>=0) {
-                System.out.println(busStopOptions.get(selectedStop).getStopName());
+               
                     textField1.setText(busStopOptions.get(selectedStop).getStopName());
-                just.setText("Bus Stop :            "+busStopOptions.get(selectedStop).getStopName()+"  "+"\n"+
-                            "Stop Id :                "+String.valueOf(busStopOptions.get(selectedStop).getStopID())+"  "+"\n"+
-                            "Bus Destination :   "+busStopOptions.get(selectedStop).getStopDesc()+"  "+"\n"+
-                            "Stop Code :           "+String.valueOf(busStopOptions.get(selectedStop).getStopCode())+"  "+"\n");
+                    just.setText("Bus Stop :            " +busStopOptions.get(selectedStop).getStopName()+"  "+"\n"+
+                    "Stop Id :                "+String.valueOf(busStopOptions.get(selectedStop).getStopID())+"  "+"\n"+
+                    "Bus Destination :   "+busStopOptions.get(selectedStop).getStopDesc()+"  "+"\n"+
+                    "Stop Code :           "+String.valueOf(busStopOptions.get(selectedStop).getStopCode())+"  "+"\n"+
+                    "Stop Lat :              "+String.valueOf(busStopOptions.get(selectedStop).getStopLat())+"  "+"\n"+
+                    "Stop Lon :             "+String.valueOf(busStopOptions.get(selectedStop).getStopLon())+"  "+"\n"+
+                    "Zone Id  :              "+String.valueOf(busStopOptions.get(selectedStop).getZoneID())+"  "+"\n");
                 }}
                 	
                 
@@ -181,7 +180,7 @@ public class frontInterface {
         }
     }
     public static String setnewBusStopName(String[] array) {
-        String x="";
+        String x=array[2];
     	String name = array[2];
         String[] arr = name.split(" ");
         int m = 0;
@@ -212,25 +211,20 @@ public class frontInterface {
         if (stop.getLeft() == null && stop.getMid() == null && stop.getRight() == null) {
             busStopOptions.add(stop.getStop());
             //stopList.add(stop.getStop());
-            System.out.println(stop.getStop().getStopName() + ", ");
+           
             return;
         }
     }
     public static void  gettstop(String c, JComboBox j){
         stop = tst.get(c);
-        if(tst.get(c)==null){
-            System.out.println("Not null");
-        }
-        if(stop==null){
-            System.out.println("stops is null");
-        }
-        //System.out.println("Old list :"+busStopOptions);
+       
+        
         busStopOptions.clear();
         j.removeAllItems();
         
-       // stopList.clear();
+     
         printAllViableStops(stop,busStopOptions);
-       // System.out.println("New list :"+busStopOptions);
+    
 
         int x=0;
         if(stop!=null){
@@ -241,12 +235,12 @@ public class frontInterface {
             j.setSelectedIndex(0);
             
         }else{
-            System.out.println("empty");
+         
             j.removeAllItems();
         }
-      //  System.out.println(busStopOptions);
+     
     }
     public static void createAndShowGUI(JFrame mainframe) {
-        selectWindow.createselectWindow(mainframe);
+        mainInterface.createselectWindow(mainframe);
     }
 }
